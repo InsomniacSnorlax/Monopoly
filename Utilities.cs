@@ -1,0 +1,35 @@
+﻿
+namespace Monopoly
+{
+    public static class Utilities
+    {
+        static Random r = new Random();
+
+        public static void Shuffle<T>(this T[] deck)
+        {
+            for (int i = deck.Length - 1; i > 0; --i)
+            {
+                int card = r.Next(i + 1);
+                T temp = deck[i];
+                deck[i] = deck[card];
+                deck[card] = temp;
+            }
+        }
+
+        public static List<string> ReadCSV(string Dir)
+        {
+            var Path = AppDomain.CurrentDomain.BaseDirectory + Dir;
+
+            var list = new List<string>();
+
+            using (var stream = new FileStream(Path, FileMode.Open))
+            {
+                var reader = new StreamReader(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+                list.AddRange(reader.ReadToEnd().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+            }
+
+            return list;
+        }
+    }
+}
