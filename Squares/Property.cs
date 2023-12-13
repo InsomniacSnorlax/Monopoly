@@ -6,11 +6,11 @@ namespace Monopoly.Squares
 {
     public class Property : OwnableLand, ISquare
     {
-        public SquareType Type => SquareType.Property;
+        public SquareType Type { get; }
 
-        public string Name => throw new NotImplementedException();
+        public string Name { get; }
 
-        public int Position => throw new NotImplementedException();
+        public int Position { get; }
 
         public int BuildingCost { get; }
 
@@ -24,7 +24,7 @@ namespace Monopoly.Squares
 
         public void Landed(Board board)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(Type);
         }
     }
 }

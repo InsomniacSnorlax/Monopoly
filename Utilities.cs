@@ -19,16 +19,19 @@ namespace Monopoly
         public static List<string> ReadCSV(string Dir)
         {
             var Path = AppDomain.CurrentDomain.BaseDirectory + Dir;
-
             var list = new List<string>();
 
             using (var stream = new FileStream(Path, FileMode.Open))
             {
+                string text;
                 var reader = new StreamReader(stream);
-                stream.Seek(0, SeekOrigin.Begin);
-                list.AddRange(reader.ReadToEnd().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+                while ((text = reader.ReadLine()) != null)
+                {
+                    list.Add(text);
+                }
             }
 
+            list.RemoveAt(0);
             return list;
         }
     }

@@ -5,15 +5,15 @@ namespace Monopoly.Squares
 {
     public class Cards : ISquare
     {
-        public string Name => throw new NotImplementedException();
+        public string Name { get; }
 
-        public SquareType Type => throw new NotImplementedException();
+        public SquareType Type { get; }
 
-        public int Position => throw new NotImplementedException();
+        public int Position { get; }
 
         public void Landed(Board board)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(Type);
         }
     }
 }

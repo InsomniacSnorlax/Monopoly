@@ -1,5 +1,4 @@
-﻿using Monopoly.Enums;
-using Monopoly.Interfaces;
+﻿using Monopoly.Squares;
 
 namespace Monopoly
 {
@@ -14,7 +13,17 @@ namespace Monopoly
             Queue<int> ChanceCardQueue = new Queue<int>(ChanceCards);
 
             var Properties = Utilities.ReadCSV("International Monopoly property Info.csv");
+            Properties.ForEach(e =>
+            {
+                var cells = e.Split(',');
 
+                if (string.IsNullOrEmpty(cells[3]))
+                    new Utility();
+                else
+                    new Property();
+            });
+            // If 3rd value is missing then it is utility property
+            // Will need to alter csv to include type and other squares
         }
 
         public int[] Squares = new int[40];
