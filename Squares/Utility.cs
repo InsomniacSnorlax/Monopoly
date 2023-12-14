@@ -15,7 +15,10 @@ namespace Monopoly.Squares
 
         public void Landed(Board board)
         {
-            Console.WriteLine(Type);
+            if(Owner != null && board.currentPlayer != Owner)
+            {
+                // Pay utlitiy based on how many the owner owns
+            }
         }
     }
 }

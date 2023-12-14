@@ -9,5 +9,9 @@ namespace Monopoly
         public List<ISquare> OwnedProperties = new List<ISquare>();
         public int Money;
         public int CurrentSqure = 0;
+        public int TouchedGo;
+        public int TotalMoved;
+
+        public bool IsInJail;
     }
 }

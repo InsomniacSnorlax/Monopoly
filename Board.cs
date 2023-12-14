@@ -10,12 +10,13 @@ namespace Monopoly
         {
             public EmptySquare(SquareType Type, string Name) 
             { 
-            
+                this.Type = Type;
+                this.Name = Name;
             }
 
-            public string Name => throw new NotImplementedException();
+            public string Name { get; }
 
-            public SquareType Type => throw new NotImplementedException();
+            public SquareType Type { get; }
 
             public void Landed(Board board)
             {
@@ -48,31 +49,43 @@ namespace Monopoly
         public List<Player> Players= new List<Player>();
         public Player currentPlayer;
 
-        private int GoTouched; // Flaw is it will count each player touching Go
+        private bool FinishedGame = false; // Flaw is it will count each player touching Go
         public void Play()
         {
             Players.ForEach(e => e.Money = 1500);
 
-
-            while(GoTouched < 2)
+            while (!FinishedGame)
             {
 
                 foreach(Player player in Players)
                 {
                     currentPlayer = player;
                     var movement = RollDice();
-                    Console.WriteLine(movement);
+
+                    if (currentPlayer.IsInJail) continue;
+
                     currentPlayer.CurrentSqure += movement;
+                    if (currentPlayer.CurrentSqure > 40)
+                    {
+                        currentPlayer.CurrentSqure %= 40;
+                        currentPlayer.TouchedGo++;
+                    }
+
+                    if(currentPlayer.TouchedGo == 2)
+                    {
+                        FinishedGame = true;
+                        break;
+                    }
+
                     Squares[currentPlayer.CurrentSqure]?.Landed(this);
 
-
-                    // If pass the GO or lands on it =>
-                    // Go touched plus 1
-                    // If went to jail, GO doesn't count
                 }
-                GoTouched++; //For now
             }
         }
+
+        public void SendPlayerTo(string Name) => currentPlayer.CurrentSqure = Squares.ToList().FindIndex(e => e.Name == Name);
+
+        public void SendPlayerTo(SquareType Type) => currentPlayer.CurrentSqure = Squares.ToList().FindIndex(e => e.Type == Type);
 
         public int RollDice()
         {
@@ -127,6 +140,12 @@ namespace Monopoly
                         break;
                     case "Tax":
                         square = new Tax(cells[0]);
+                        break;
+                    case "Go":
+                        square = new EmptySquare(SquareType.Go, cells[0]);
+                        break;
+                    case "Parking":
+                        square = new EmptySquare(SquareType.Parking, cells[0]);
                         break;
                 }
                 if (square == null) continue;

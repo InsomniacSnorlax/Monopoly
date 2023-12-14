@@ -8,12 +8,12 @@ namespace Monopoly.Squares
         public Tax(string Name) => this.Name = Name;
 
         public string Name { get; }
-
+        public int Cost { get; }
         public SquareType Type => SquareType.Tax;
 
         public void Landed(Board board)
         {
-            Console.WriteLine(Type);
+            board.currentPlayer.Money -= Cost;
         }
     }
 }

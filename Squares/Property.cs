@@ -40,13 +40,16 @@ namespace Monopoly.Squares
 
         public void Landed(Board board)
         {
-            if(Owner == null)
+            if(Owner != null && board.currentPlayer != Owner)
             {
+                int rent = GetRent();
+                bool CanAfford = board.currentPlayer.Money - rent > 0;
 
-            }
-            else
-            {
-
+                if(CanAfford)
+                {
+                    board.currentPlayer.Money -= rent;
+                    Owner.Money += rent;
+                }
             }
 
             Console.WriteLine(Name);
@@ -64,10 +67,10 @@ namespace Monopoly.Squares
             Owner = null;
         }
 
-        public float GetRent()
+        public int GetRent()
         {
             // If only
-            float rent = 0;
+            int rent = 0;
 
             switch (Houses)
             {

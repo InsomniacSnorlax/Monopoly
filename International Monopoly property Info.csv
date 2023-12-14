@@ -5,11 +5,11 @@ Community Chest,Community,,3,,,,,,,,
 Whitechapel Road,Property,60,4,Brown,20,60,180,320,450,50,30
 Income Tax,Tax,,5,,,,,,,,
 Kings Cross Station,Rail,200,6,,,,,,,,100
-"The Angel, Islington",Property,100,7,Cyan,30,90,270,400,550,50,50
+The Angel Islington,Property,100,7,Cyan,30,90,270,400,550,50,50
 Chance,Chance,,8,,,,,,,,
 Euston Road,Property,100,9,Cyan,30,90,270,400,550,50,50
 Pentonville Road,Property,120,10,Cyan,40,100,300,450,600,50,60
-Jail,,,11,,,,,,,,
+Jail,Jail,,11,,,,,,,,
 Pall Mall,Property,140,12,Pink,50,150,450,625,750,100,70
 Electric Company,Utility,150,13,,,,,,,,75
 Whitehall,Property,140,14,Pink,50,150,450,625,750,100,70

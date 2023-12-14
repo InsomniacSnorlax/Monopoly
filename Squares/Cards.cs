@@ -8,7 +8,7 @@ namespace Monopoly.Squares
         public Cards(SquareType type) {
             Type = type;
         }
-        public string Name { get; }
+        public string Name => Type.ToString();
 
         public SquareType Type { get; }
 
