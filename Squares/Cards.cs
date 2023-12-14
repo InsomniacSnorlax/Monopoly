@@ -5,6 +5,9 @@ namespace Monopoly.Squares
 {
     public class Cards : ISquare
     {
+        public Cards(SquareType type) {
+            Type = type;
+        }
         public string Name { get; }
 
         public SquareType Type { get; }

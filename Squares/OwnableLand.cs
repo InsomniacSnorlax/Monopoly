@@ -2,7 +2,7 @@
 {
     public class OwnableLand
     {
-        public int Owner { get; set; }
+        public Player Owner { get; set; }
         public int Cost { get; set; }
         public string Color { get; set; }
         public int Rent { get; set; }

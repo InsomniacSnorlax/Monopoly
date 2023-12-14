@@ -3,16 +3,13 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class Railroad : OwnableLand, ISquare
+    public class Tax : ISquare
     {
-        public Railroad(string name) 
-        {
-            Name = name;
-        }
+        public Tax(string Name) => this.Name = Name;
 
         public string Name { get; }
 
-        public SquareType Type => SquareType.Rail;
+        public SquareType Type => SquareType.Tax;
 
         public void Landed(Board board)
         {

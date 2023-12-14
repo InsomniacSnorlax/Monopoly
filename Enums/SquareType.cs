@@ -8,7 +8,7 @@ namespace Monopoly.Enums
         Community,
         Property,
         Go,
-        Station,
+        Rail,
         Tax,
         GoToJail,
         Parking,

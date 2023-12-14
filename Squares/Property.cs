@@ -4,6 +4,7 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
+    [Serializable]
     public sealed class Property : OwnableLand, ISquare
     {
         public SquareType Type => SquareType.Property;
@@ -22,12 +23,10 @@ namespace Monopoly.Squares
         public int Rent4 { get; }
         public int Rent5 { get; }
 
-        public Property(string text)
+        public Property(string[] lines)
         {
-            var lines = text.Split(',');
             Name = lines[0];
-            //Cost = int.Parse(lines[2]);
-            /*
+            Cost = int.Parse(lines[2]);
             Position = int.Parse(lines[3]);
             Color = lines[4];
             Rent1= int.Parse(lines[5]);
@@ -36,12 +35,60 @@ namespace Monopoly.Squares
             Rent4= int.Parse(lines[8]);
             Rent5= int.Parse(lines[9]);
             BuildingCost = int.Parse(lines[10]);
-            Mortgage= int.Parse(lines[11]);*/
+            Mortgage = int.Parse(lines[11]);
         }
 
         public void Landed(Board board)
         {
+            if(Owner == null)
+            {
+
+            }
+            else
+            {
+
+            }
+
             Console.WriteLine(Name);
+        }
+
+        public void BuyProperty(Player player)
+        {
+            Owner = player;
+            player.Money -= Cost;
+        }
+
+        public void SellProperty()
+        {
+            Owner.Money += Cost / 2;
+            Owner = null;
+        }
+
+        public float GetRent()
+        {
+            // If only
+            float rent = 0;
+
+            switch (Houses)
+            {
+                case 1:
+                    rent = Rent1;
+                    break;
+                case 2:
+                    rent = Rent2;
+                    break;
+                case 3:
+                    rent = Rent3;
+                    break;
+                case 4:
+                    rent = Rent4;
+                    break;
+                case 5:
+                    rent = Rent5;
+                    break;
+            }
+
+            return rent;
         }
     }
 }

@@ -5,11 +5,14 @@ namespace Monopoly.Squares
 {
     public class Jail : ISquare
     {
-        public string Name { get; }
+        public Jail(SquareType type)
+        {
+            Type = type;
+        }
+
+        public string Name => Type == SquareType.GoToJail ? "Go To Jail" : "Jail";
 
         public SquareType Type { get; }
-
-        public int Position { get; }
 
         public void Landed(Board board)
         {
