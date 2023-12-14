@@ -20,7 +20,7 @@ namespace Monopoly
         {
             var Path = AppDomain.CurrentDomain.BaseDirectory + Dir;
             var list = new List<string>();
-
+            Console.Write(Path);
             using (var stream = new FileStream(Path, FileMode.Open))
             {
                 string text;

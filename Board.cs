@@ -1,4 +1,5 @@
-﻿using Monopoly.Squares;
+﻿using Monopoly.Interfaces;
+using Monopoly.Squares;
 
 namespace Monopoly
 {
@@ -17,16 +18,18 @@ namespace Monopoly
             {
                 var cells = e.Split(',');
 
-                if (string.IsNullOrEmpty(cells[3]))
-                    new Utility();
-                else
-                    new Property();
+               // if (!string.IsNullOrEmpty(cells[3]))
+                    test.Add(new Property(e));
             });
             // If 3rd value is missing then it is utility property
             // Will need to alter csv to include type and other squares
+
+            
         }
 
-        public int[] Squares = new int[40];
+        public List<ISquare> test = new List<ISquare>();
+
+        public ISquare[] Squares = new ISquare[40];
         public List<Player> Players= new List<Player>();
         private int GoTouched;
         public void Play()
