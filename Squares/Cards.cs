@@ -16,9 +16,15 @@ namespace Monopoly.Squares
 
         public int Position { get; }
 
-        public void Landed(Board board)
+        public void Landed()
         {
-            Console.WriteLine(Type);
+            Queue<ICard> queue = Type == SquareType.Community ? Board.Instance.CommunityCards : Board.Instance.ChanceCards;
+
+            var card = queue.Dequeue();
+
+            card.PlayEffect();
+
+            queue.Enqueue(card);
         }
     }
 }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Monopoly.Enums;
 
 namespace Monopoly.Interfaces
 {
     public interface ICard
     {
         public string Text { get; }
-
-        public int PlayEffect();
+        public SquareType cardType { get; }
+        public void PlayEffect();
     }
 }

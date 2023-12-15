@@ -7,6 +7,6 @@ namespace Monopoly.Interfaces
         string Name { get; }
         SquareType Type { get; }
         int Position { get; }
-        void Landed(Board board);
+        void Landed();
     }
 }

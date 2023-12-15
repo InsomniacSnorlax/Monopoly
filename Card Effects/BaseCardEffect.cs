@@ -1,4 +1,5 @@
-﻿using Monopoly.Interfaces;
+﻿using Monopoly.Enums;
+using Monopoly.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,18 @@ namespace Monopoly.Card_Effects
 {
     public abstract class BaseCardEffect : ICard
     {
-        public BaseCardEffect(ICard card, List<string> parameters) => this.card = card;
+        public BaseCardEffect(string[] parameters) { 
+            Text = parameters[0];
+            this.parameters = parameters;
+            cardType = parameters[3] == "Chance" ? SquareType.Chance : SquareType.Community;
+        }
 
-        protected ICard card;
         public string Text { get; }
-
-        public virtual int PlayEffect()
+        protected string[] parameters;
+        public SquareType cardType { get; }
+        public virtual void PlayEffect()
         {
-            card?.PlayEffect();
 
-            return 0;
         }
     }
 }

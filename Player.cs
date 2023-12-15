@@ -16,7 +16,7 @@ namespace Monopoly
         public bool IsInJail;
 
         public bool IsBankrupted;
-        public List<Cards> JailFreeCards = new List<Cards>();
+        public int JailFreeCards;
         public int Money
         {
             get => m_Money;
@@ -40,16 +40,21 @@ namespace Monopoly
                 List<Property> Properties = new();
                 List<OwnableLand> Land = new();
 
-                OwnedProperties.FindAll(e => e is Property).ForEach(e => Properties.Add(e as Property));
-
-                var propertiesWithHouses = Properties.FindAll(e => e.Houses != 0);
-                var propertiesWithMortgages = OwnedProperties.FindAll(e => 
+                OwnedProperties.FindAll(e =>
                 {
-                    if (e is Property)
-                        return (e as Property)?.Houses == 0 && e.IsMortgaged == false;
+                    var isProperty = e.TryGetValue<Property>(out Property p);
+                    if (p != null) Properties.Add(p);
+                    return isProperty;
+                });
+                var propertiesWithMortgages = OwnedProperties.FindAll(e =>
+                {
+                    if (e.TryGetValue<Property>(out Property p))
+                        return p?.Houses == 0 && p.IsMortgaged == false;
 
                     return e.IsMortgaged == false;
                 });
+
+                var propertiesWithHouses = Properties.FindAll(e => e.Houses != 0);
 
                 if (propertiesWithHouses.Count != 0)
                 {
@@ -74,9 +79,9 @@ namespace Monopoly
             if (Money < Jail.PrisonFine || !IsInJail)
                 return;
 
-            if (JailFreeCards.Count > 0)
+            if (JailFreeCards > 0)
             {
-                JailFreeCards.RemoveAt(0);
+                JailFreeCards--;
                 IsInJail = false;
                 return;
             }
@@ -86,6 +91,12 @@ namespace Monopoly
                 Money -= Jail.PrisonFine;
                 IsInJail = false;
             }
+        }
+
+        public void BuyProperty(OwnableLand property)
+        {
+            if (property.Cost < Money)
+                property.BuyProperty(this);
         }
     }
 }

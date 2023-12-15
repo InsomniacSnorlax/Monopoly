@@ -29,43 +29,16 @@ namespace Monopoly.Squares
             Color = lines[4];
 
             Rent = int.Parse(lines[5]);
-            ColorRent= int.Parse(lines[6]);
+            ColorRent = int.Parse(lines[6]);
 
-            Rent1= int.Parse(lines[7]);
-            Rent2= int.Parse(lines[8]);
+            Rent1 = int.Parse(lines[7]);
+            Rent2 = int.Parse(lines[8]);
             Rent3 = int.Parse(lines[9]);
-            Rent4= int.Parse(lines[10]);
-            Rent5= int.Parse(lines[11]);
+            Rent4 = int.Parse(lines[10]);
+            Rent5 = int.Parse(lines[11]);
             BuildingCost = int.Parse(lines[12]);
             Mortgage = int.Parse(lines[13]);
         }
-
-        public override void Landed(Board board)
-        {
-            Player currentPlayer = board.currentPlayer;
-
-            if (Owner != null && currentPlayer != Owner && !IsMortgaged)
-            {
-                int rent = GetRent();
-                bool CanAfford = currentPlayer.Money - rent > 0;
-
-                if(CanAfford)
-                {
-                    Console.WriteLine($"{currentPlayer.Name} had to pay {Owner.Name}");
-                    currentPlayer.Money -= rent;
-                    Owner.Money += rent;
-                }
-            }
-            if(Owner == null)
-            {
-                // Attempt to buy
-                if(currentPlayer.Money > Cost)
-                {
-                    BuyProperty(currentPlayer);
-                }
-            }
-        }
-
 
 
         public int SellHouse()
@@ -82,9 +55,7 @@ namespace Monopoly.Squares
             Houses++;
         }
 
-       
-
-        public int GetRent()
+        public override int GetRent()
         {
             // If only
             int rent = Owner.OwnedProperties.FindAll(e => e.Color == Color).Count == 3 ? ColorRent : Rent;

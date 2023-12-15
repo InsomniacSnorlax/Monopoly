@@ -3,21 +3,16 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class OwnableLand : ISquare
+    public abstract class OwnableLand : ISquare
     {
-        public Player Owner { get; set; }
+        public string Name { get; set; }
         public int Cost { get; set; }
         public string Color { get; set; }
         public int Rent { get; set; }
-
         public int Mortgage { get; set; }
-
         public bool IsMortgaged { get; set; }
-
-        public string Name { get; set; }
-
+        public Player Owner { get; set; }
         public virtual SquareType Type { get; set; }
-
         public int Position { get; set; }
 
         public void BuyProperty(Player player)
@@ -47,9 +42,35 @@ namespace Monopoly.Squares
             IsMortgaged = false;
         }
 
-        public virtual void Landed(Board board)
+        public virtual void Landed()
         {
-    
+            Player currentPlayer = Board.Instance.currentPlayer;
+
+            if (Owner != null && currentPlayer != Owner && !IsMortgaged)
+            {
+                PayRent(currentPlayer, GetRent());
+            }
+            if (Owner == null)
+            {
+                // Attempt to buy
+                if (currentPlayer.Money > Cost)
+                {
+                    BuyProperty(currentPlayer);
+                }
+            }
+        }
+
+        public virtual void PayRent(Player currentPlayer, int rent)
+        {
+            Console.WriteLine($"{currentPlayer.Name} {currentPlayer.Money} payed {Owner.Name} {Owner.Money} {rent}");
+            currentPlayer.Money -= rent;
+            Owner.Money += rent;
+        }
+
+
+        public virtual int GetRent()
+        {
+            return 0;
         }
     }
 }

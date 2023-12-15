@@ -17,9 +17,9 @@ namespace Monopoly.Squares
 
         public int Position { get; }
 
-        public void Landed(Board board)
+        public void Landed()
         {
-            board.currentPlayer.Money -= Cost;
+            Board.Instance.currentPlayer.Money -= Cost;
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Monopoly.Squares
         public int Position { get; }
         public SquareType Type { get; }
 
-        public void Landed(Board board)
+        public void Landed()
         {
             if (Type != SquareType.GoToJail) return;
-            board.currentPlayer.CurrentSqure = board.SendPlayerTo(SquareType.Jail);
-            board.currentPlayer.IsInJail = true;
+            Board.Instance.currentPlayer.CurrentSqure = Board.Instance.SendPlayerTo(SquareType.Jail);
+            Board.Instance.currentPlayer.IsInJail = true;
         }
     }
 }

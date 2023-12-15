@@ -6,19 +6,22 @@ namespace Monopoly.Squares
     public class Utility : OwnableLand
     {
         public override SquareType Type => SquareType.Utilities;
-        public Utility(string Name, int Position)
+        public Utility(string[] lines)
         {
-            this.Name = Name;
-            this.Position = Position;
+            Name = lines[0];
+            Cost = int.Parse(lines[2]);
+            Position = int.Parse(lines[3]);
+            Color = lines[4];
+
+            Rent1 = int.Parse(lines[7]);
+            Rent2 = int.Parse(lines[8]);
+
+            Mortgage = int.Parse(lines[13]);
         }
 
+        int Rent1;
+        int Rent2;
 
-        public override void Landed(Board board)
-        {
-            if(Owner != null && board.currentPlayer != Owner)
-            {
-                // Pay utlitiy based on how many the owner owns
-            }
-        }
+        public override int GetRent() => Owner.OwnedProperties.FindAll(e => e.Type == Type).Count == 2 ? Rent2 : Rent1;
     }
 }

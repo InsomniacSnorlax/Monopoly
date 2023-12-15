@@ -5,9 +5,9 @@ namespace Monopoly
     {
         static Random r = new Random();
 
-        public static void Shuffle<T>(this T[] deck)
+        public static void Shuffle<T>(this List<T> deck)
         {
-            for (int i = deck.Length - 1; i > 0; --i)
+            for (int i = deck.Count - 1; i > 0; --i)
             {
                 int card = r.Next(i + 1);
                 T temp = deck[i];
@@ -32,6 +32,17 @@ namespace Monopoly
 
             list.RemoveAt(0);
             return list;
+        }
+
+        public static int RollD6() => r.Next(1, 7);
+
+        public static bool TryGetValue<T>(this object obj, out T type)
+        {
+            type = default;
+            if (obj is T) type = (T)obj;
+            
+
+            return obj is T;
         }
     }
 }

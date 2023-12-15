@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Cards.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="International Monopoly property Info.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
