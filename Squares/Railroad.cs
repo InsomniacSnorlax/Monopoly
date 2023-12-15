@@ -7,14 +7,15 @@ namespace Monopoly.Squares
     {
         public override SquareType Type => SquareType.Rail;
 
-        public Railroad(string name) 
+        public Railroad(string Name, int Position)
         {
-            Name = name;
+            this.Name = Name;
+            this.Position = Position;
         }
 
         public override void Landed(Board board)
         {
-            Console.WriteLine(Type);
+
         }
     }
 }

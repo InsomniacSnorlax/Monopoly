@@ -5,8 +5,10 @@ namespace Monopoly.Squares
 {
     public class Cards : ISquare
     {
-        public Cards(SquareType type) {
-            Type = type;
+        public Cards(SquareType Type, int Position)
+        {
+            this.Type = Type;
+            this.Position = Position;
         }
         public string Name => Type.ToString();
 

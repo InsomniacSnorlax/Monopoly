@@ -1,6 +1,4 @@
 ﻿
 using Monopoly;
 
-var board = new Board();
-
-board.Play();
+Board.Instance.Play();

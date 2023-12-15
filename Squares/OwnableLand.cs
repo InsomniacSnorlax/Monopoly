@@ -18,11 +18,13 @@ namespace Monopoly.Squares
 
         public virtual SquareType Type { get; set; }
 
+        public int Position { get; set; }
+
         public void BuyProperty(Player player)
         {
             Owner = player;
-            player.Money -= Cost;
             player.OwnedProperties.Add(this);
+            player.Money -= Cost;
         }
 
         public void SellProperty()
@@ -32,10 +34,11 @@ namespace Monopoly.Squares
             Owner = null;
         }
 
-        public void Mortgaged()
+        public int Mortgaged()
         {
-            Owner.Money += Mortgage;
             IsMortgaged = true;
+
+            return Mortgage;
         }
 
         public void UnMortgage()

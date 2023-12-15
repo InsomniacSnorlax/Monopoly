@@ -9,9 +9,9 @@ namespace Monopoly.Squares
     public sealed class Property : OwnableLand
     {
         public override SquareType Type => SquareType.Property;
-
-        public int Position { get; }
         public int BuildingCost { get; }
+
+        public int ColorRent { get; }
 
         // Rent dependant on number of houses
         public int Houses { get; set; }
@@ -27,13 +27,17 @@ namespace Monopoly.Squares
             Cost = int.Parse(lines[2]);
             Position = int.Parse(lines[3]);
             Color = lines[4];
-            Rent1= int.Parse(lines[5]);
-            Rent2= int.Parse(lines[6]);
-            Rent3 = int.Parse(lines[7]);
-            Rent4= int.Parse(lines[8]);
-            Rent5= int.Parse(lines[9]);
-            BuildingCost = int.Parse(lines[10]);
-            Mortgage = int.Parse(lines[11]);
+
+            Rent = int.Parse(lines[5]);
+            ColorRent= int.Parse(lines[6]);
+
+            Rent1= int.Parse(lines[7]);
+            Rent2= int.Parse(lines[8]);
+            Rent3 = int.Parse(lines[9]);
+            Rent4= int.Parse(lines[10]);
+            Rent5= int.Parse(lines[11]);
+            BuildingCost = int.Parse(lines[12]);
+            Mortgage = int.Parse(lines[13]);
         }
 
         public override void Landed(Board board)
@@ -64,10 +68,11 @@ namespace Monopoly.Squares
 
 
 
-        public void SellHouse()
+        public int SellHouse()
         {
-            Owner.Money += BuildingCost / 2;
+            Console.WriteLine($"House price {BuildingCost / 2}");
             Houses--;
+            return BuildingCost / 2;
         }
 
         public void BuyHouse()
@@ -82,7 +87,7 @@ namespace Monopoly.Squares
         public int GetRent()
         {
             // If only
-            int rent = 0;
+            int rent = Owner.OwnedProperties.FindAll(e => e.Color == Color).Count == 3 ? ColorRent : Rent;
 
             switch (Houses)
             {

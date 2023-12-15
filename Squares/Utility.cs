@@ -6,7 +6,11 @@ namespace Monopoly.Squares
     public class Utility : OwnableLand
     {
         public override SquareType Type => SquareType.Utilities;
-        public Utility(string name) => Name = name;
+        public Utility(string Name, int Position)
+        {
+            this.Name = Name;
+            this.Position = Position;
+        }
 
 
         public override void Landed(Board board)
