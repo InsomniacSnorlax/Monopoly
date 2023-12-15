@@ -17,7 +17,7 @@ namespace Monopoly.Squares
         public void Landed(Board board)
         {
             if (Type != SquareType.GoToJail) return;
-
+            Console.WriteLine("-------------- Went to jail");
             board.SendPlayerTo(SquareType.Jail);
             board.currentPlayer.IsInJail = true;
         }

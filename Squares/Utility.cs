@@ -3,17 +3,13 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class Utility : OwnableLand, ISquare
+    public class Utility : OwnableLand
     {
+        public override SquareType Type => SquareType.Utilities;
         public Utility(string name) => Name = name;
 
-        public int Position { get; }
 
-        public string Name { get; }
-
-        public SquareType Type => SquareType.Utilities;
-
-        public void Landed(Board board)
+        public override void Landed(Board board)
         {
             if(Owner != null && board.currentPlayer != Owner)
             {

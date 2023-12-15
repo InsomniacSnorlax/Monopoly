@@ -26,34 +26,31 @@ namespace Monopoly
 
         public Board()
         {
-            // Load squares from somewhere 
             var ChanceCards = new int[10];
             ChanceCards.Shuffle();
 
             Queue<int> ChanceCardQueue = new Queue<int>(ChanceCards);
 
             AssignClass(Utilities.ReadCSV("International Monopoly property Info.csv"));
+            //AssignCard(Utilities.ReadCSV("Cards.csv"));
+
 
             Players.Add(new Player("Charlie"));
             Players.Add(new Player("Chau"));
 
-            // If 3rd value is missing then it is utility property
-            // Will need to alter csv to include type and other squares
-            // Don't need jail
-            // Turn jail.cs to GoToJail
-            // Free parking does nothing so don't need it
-
+            Players.ForEach(e => e.Money = 1500);
         }
 
         public ISquare[] Squares = new ISquare[40];
-        public List<Player> Players= new List<Player>();
+        public List<Player> Players= new();
         public Player currentPlayer;
+        public Queue<Cards> ChanceCards = new();
+        public Queue<Cards> CommunityCards = new();
 
-        private bool FinishedGame = false; // Flaw is it will count each player touching Go
+
+        private bool FinishedGame = false;
         public void Play()
         {
-            Players.ForEach(e => e.Money = 1500);
-
             while (!FinishedGame)
             {
 
@@ -65,9 +62,9 @@ namespace Monopoly
                     if (currentPlayer.IsInJail) continue;
 
                     currentPlayer.CurrentSqure += movement;
-                    if (currentPlayer.CurrentSqure > 40)
+                    if (currentPlayer.CurrentSqure > Squares.Length - 1)
                     {
-                        currentPlayer.CurrentSqure %= 40;
+                        currentPlayer.CurrentSqure %= (Squares.Length - 1);
                         currentPlayer.TouchedGo++;
                     }
 
@@ -76,12 +73,22 @@ namespace Monopoly
                         FinishedGame = true;
                         break;
                     }
-
+                    Console.WriteLine($"Current Index: {currentPlayer.CurrentSqure}");
                     Squares[currentPlayer.CurrentSqure]?.Landed(this);
 
                 }
             }
         }
+
+        //Effects
+        // Go -> collect if
+        // Move
+        // Pay
+        // Jail Free
+        // Repairs -> pay per house
+        // Player -> Get money from each player
+        // Nearest
+        // Dice
 
         public void SendPlayerTo(string Name) => currentPlayer.CurrentSqure = Squares.ToList().FindIndex(e => e.Name == Name);
 
@@ -95,7 +102,11 @@ namespace Monopoly
 
             if(firstRoll == secondRoll)
             {
-                // Roll double == true
+                currentPlayer.IsInJail = false;
+            }
+            else
+            {
+                currentPlayer.RolledDouble++;
             }
 
             return firstRoll + secondRoll;
@@ -109,7 +120,7 @@ namespace Monopoly
 
         public void AssignClass(List<string> strings)
         {
-            for(int i = 0; i < strings.Count; i++)
+            for (int i = 0; i < strings.Count; i++)
             {
                 var line = strings[i];
 
@@ -151,6 +162,11 @@ namespace Monopoly
                 if (square == null) continue;
                 Squares[i] = square;
             }
+        }
+
+        public void AssignCard(List<string> strings)
+        {
+
         }
     }
 }

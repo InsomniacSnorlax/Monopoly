@@ -1,22 +1,20 @@
 ﻿
 using Monopoly.Enums;
 using Monopoly.Interfaces;
+using System.Numerics;
 
 namespace Monopoly.Squares
 {
     [Serializable]
-    public sealed class Property : OwnableLand, ISquare
+    public sealed class Property : OwnableLand
     {
-        public SquareType Type => SquareType.Property;
-
-        public string Name { get; set; }
+        public override SquareType Type => SquareType.Property;
 
         public int Position { get; }
-
         public int BuildingCost { get; }
 
         // Rent dependant on number of houses
-        public int Houses { get; }
+        public int Houses { get; set; }
         public int Rent1 { get; }
         public int Rent2 { get; }
         public int Rent3 { get; }
@@ -38,34 +36,48 @@ namespace Monopoly.Squares
             Mortgage = int.Parse(lines[11]);
         }
 
-        public void Landed(Board board)
+        public override void Landed(Board board)
         {
-            if(Owner != null && board.currentPlayer != Owner)
+            Player currentPlayer = board.currentPlayer;
+
+            if (Owner != null && currentPlayer != Owner && !IsMortgaged)
             {
                 int rent = GetRent();
-                bool CanAfford = board.currentPlayer.Money - rent > 0;
+                bool CanAfford = currentPlayer.Money - rent > 0;
 
                 if(CanAfford)
                 {
-                    board.currentPlayer.Money -= rent;
+                    Console.WriteLine($"{currentPlayer.Name} had to pay {Owner.Name}");
+                    currentPlayer.Money -= rent;
                     Owner.Money += rent;
                 }
             }
-
-            Console.WriteLine(Name);
+            if(Owner == null)
+            {
+                // Attempt to buy
+                if(currentPlayer.Money > Cost)
+                {
+                    BuyProperty(currentPlayer);
+                }
+            }
         }
 
-        public void BuyProperty(Player player)
+
+
+        public void SellHouse()
         {
-            Owner = player;
-            player.Money -= Cost;
+            Owner.Money += BuildingCost / 2;
+            Houses--;
         }
 
-        public void SellProperty()
+        public void BuyHouse()
         {
-            Owner.Money += Cost / 2;
-            Owner = null;
+            if (Houses > 5) return;
+            Owner.Money -= BuildingCost;
+            Houses++;
         }
+
+       
 
         public int GetRent()
         {
