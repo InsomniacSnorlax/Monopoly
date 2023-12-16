@@ -20,7 +20,7 @@ namespace Monopoly.Commands
         bool NoMoney;
         public void Execute()
         {
-            if (player.Money < land.Cost)
+            if (player.Money < land.Cost || land.Owner != null)
                 NoMoney = true;
             else
                 land.BuyProperty(player);
@@ -28,7 +28,7 @@ namespace Monopoly.Commands
 
         public string Log()
         {
-            return !NoMoney ? $"{player.Name} bought {land.Name} for {land.Cost}" : $"{player.Name} tried to buy {land.Name} but has not enough money";
+            return !NoMoney ? $"{player.Name} bought {land.Name} for {land.Cost}" : $"{player.Name} tried to buy {land.Name}";
         }
     }
 }

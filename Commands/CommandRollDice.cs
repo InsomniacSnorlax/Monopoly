@@ -15,10 +15,16 @@ namespace Monopoly.Commands
 
         bool IsSame;
         int PreviousRolledDouble;
-
+        bool UsedJailFree;
 
         public void Execute()
         {
+            if(player.JailFreeCards > 0)
+            {
+                UsedJailFree= true;
+                player.JailFreeCards--;
+            }
+
             Result1 = Utilities.RollD6();
             Result2 = Utilities.RollD6();
             IsSame = Result1 == Result2;
@@ -31,11 +37,18 @@ namespace Monopoly.Commands
             }
             else player.RolledDouble = 0;
             player.DiceRoll = Result1 + Result2;
+
+            if (player.RolledDouble == 3) CommandInvoker.Instance += new CommandGoToJail(player);
+
+            if (!player.IsInJail) CommandInvoker.Instance += new CommandMove(player);
         }
 
         public string Log()
         {
-            return $"{player.Name} rolled: {Result1} {Result2}";
+            string log = $"{player.Name} rolled: {Result1} {Result2}";
+            if (player.IsInJail) log += $"\r\n{player.Name} is still in Jail";
+            if (UsedJailFree) log += $"\r\n{player.Name} Used jail out of free card";
+            return log;
         }
     }
 }

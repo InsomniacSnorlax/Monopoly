@@ -1,4 +1,5 @@
-﻿using Monopoly.Enums;
+﻿using Monopoly.Commands;
+using Monopoly.Enums;
 using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
@@ -18,13 +19,7 @@ namespace Monopoly.Squares
 
         public void Landed()
         {
-            Queue<ICard> queue = Type == SquareType.Community ? Board.Instance.CommunityCards : Board.Instance.ChanceCards;
-
-            var card = queue.Dequeue();
-
-            card.PlayEffect();
-
-            queue.Enqueue(card);
+            CommandInvoker.Instance += new CommandPickCard(Type);
         }
     }
 }

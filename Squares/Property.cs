@@ -43,14 +43,12 @@ namespace Monopoly.Squares
 
         public int SellHouse()
         {
-            Console.WriteLine($"House price {BuildingCost / 2}");
             Houses--;
             return BuildingCost / 2;
         }
 
         public void BuyHouse()
         {
-            if (Houses > 5) return;
             Owner.Money -= BuildingCost;
             Houses++;
         }

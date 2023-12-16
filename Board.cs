@@ -1,4 +1,5 @@
 ﻿using Monopoly.Card_Effects;
+using Monopoly.Commands;
 using Monopoly.Enums;
 using Monopoly.Interfaces;
 using Monopoly.Squares;
@@ -41,11 +42,6 @@ namespace Monopoly
                 List<ICard> cards = new List<ICard>();
                 strings.ForEach(e => cards.Add(Regex.Split(e, "[,]{1}(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))").CreateCards()));
 
-                for (int i = 0;i < cards.Count; i++)
-                {
-                    Console.WriteLine(i);
-                }
-
                 var community = cards.FindAll(e => e.cardType == SquareType.Community);
                 var chance = cards.FindAll(e => e.cardType == SquareType.Chance);
 
@@ -63,65 +59,23 @@ namespace Monopoly
         public Queue<ICard> ChanceCards = new();
         public Queue<ICard> CommunityCards = new();
         private bool FinishedGame = false;
-
+        public int Turn;
+        public int Rotation => Players.Max(e => e.TouchedGo);
         public void Play()
         {
             while (!FinishedGame)
             {
-                foreach(Player player in Players)
+                Turn++;
+                foreach (Player player in Players)
                 {
                     currentPlayer = player;
-                    if (currentPlayer.IsBankrupted) continue;
+                    if(!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer);
 
-                    var movement = RollDice();
-
-                    if (currentPlayer.IsInJail) continue;
-
-                    currentPlayer.CurrentSqure += movement;
-
-                    if (currentPlayer.CurrentSqure > Squares.Count - 1)
-                    {
-                        currentPlayer.CurrentSqure %= (Squares.Count - 1);
-                        currentPlayer.TouchedGo++;
-                        currentPlayer.Money += 200;
-                    }
-
-                    if(currentPlayer.TouchedGo == 4)
-                    {
-                        FinishedGame = true;
-                        break;
-                    }
-                   
-                    Squares[currentPlayer.CurrentSqure]?.Landed();
-                    Console.WriteLine($"Current Index: {currentPlayer.Name} {currentPlayer.CurrentSqure} {currentPlayer.Money}");
+                    if (currentPlayer.TouchedGo == 2) FinishedGame = true;
                 }
             }
         }
 
-        public void SendPlayerTo(string Name) => currentPlayer.CurrentSqure = Squares.ToList().FindIndex(e => e.Name == Name);
-
         public int SendPlayerTo(SquareType Type) => Squares.ToList().FindIndex(e => e.Type == Type);
-
-
-        public int RollDice()
-        {
-            if(currentPlayer.IsInJail) currentPlayer.EscapePrison(); // Will attempt to leave jail
-
-            int firstRoll = Utilities.RollD6();
-            int secondRoll = Utilities.RollD6();
-
-            if (firstRoll == secondRoll)
-            {
-                currentPlayer.IsInJail = false;
-            }
-            else
-            {
-                currentPlayer.RolledDouble++;
-
-                if (currentPlayer.RolledDouble == 3) Squares.Find(e => e.Type == SquareType.GoToJail)?.Landed();
-            }
-
-            return firstRoll + secondRoll;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Monopoly.Enums;
+﻿using Monopoly.Commands;
+using Monopoly.Enums;
 using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
@@ -11,7 +12,7 @@ namespace Monopoly.Squares
         public int Rent { get; set; }
         public int Mortgage { get; set; }
         public bool IsMortgaged { get; set; }
-        public Player Owner { get; set; }
+        public Player Owner { get; set; } = null;
         public virtual SquareType Type { get; set; }
         public int Position { get; set; }
 
@@ -36,10 +37,11 @@ namespace Monopoly.Squares
             return Mortgage;
         }
 
-        public void UnMortgage()
+        public int UnMortgage()
         {
-            Owner.Money -= (int)(Mortgage * 1.1f);
             IsMortgaged = false;
+
+            return (int)(Mortgage * 1.1f);
         }
 
         public virtual void Landed()
@@ -48,21 +50,12 @@ namespace Monopoly.Squares
 
             if (Owner != null && currentPlayer != Owner && !IsMortgaged)
             {
-                PayRent(currentPlayer, GetRent());
-            }
-            if (Owner == null)
-            {
-                // Attempt to buy
-                if (currentPlayer.Money > Cost)
-                {
-                    BuyProperty(currentPlayer);
-                }
+                CommandInvoker.Instance += new CommandRent(this, currentPlayer);
             }
         }
 
         public virtual void PayRent(Player currentPlayer, int rent)
         {
-            Console.WriteLine($"{currentPlayer.Name} {currentPlayer.Money} payed {Owner.Name} {Owner.Money} {rent}");
             currentPlayer.Money -= rent;
             Owner.Money += rent;
         }

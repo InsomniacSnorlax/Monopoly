@@ -2,9 +2,8 @@
 {
     public sealed class Bank
     {
-        public int Houses;
-        public int Hotels;
-        public int Money;
+        public int Houses = 32;
+        public int Hotels = 12;
 
         public static Bank Instance
         {

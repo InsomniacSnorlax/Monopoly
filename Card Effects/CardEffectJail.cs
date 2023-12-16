@@ -1,4 +1,5 @@
-﻿using Monopoly.Enums;
+﻿using Monopoly.Commands;
+using Monopoly.Enums;
 
 namespace Monopoly.Card_Effects
 {
@@ -10,7 +11,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            Board.Instance.Squares.Find(e => e.Type == SquareType.GoToJail)?.Landed();
+            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.currentPlayer);
         }
     }
 }

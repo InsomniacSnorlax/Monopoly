@@ -1,4 +1,5 @@
-﻿using Monopoly.Enums;
+﻿using Monopoly.Commands;
+using Monopoly.Enums;
 using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
@@ -19,8 +20,7 @@ namespace Monopoly.Squares
         public void Landed()
         {
             if (Type != SquareType.GoToJail) return;
-            Board.Instance.currentPlayer.CurrentSqure = Board.Instance.SendPlayerTo(SquareType.Jail);
-            Board.Instance.currentPlayer.IsInJail = true;
+            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.currentPlayer);
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Monopoly.Commands
                 player.TouchedGo++;
                 player.Money += 200;
                 touchedGo = true;
-
             }
 
             LandedSquare = Squares[player.CurrentSqure];
