@@ -64,23 +64,23 @@ namespace Monopoly.Commands
 
             while (!exit)
             {
-                var input = Console.ReadLine();
+                var input = Console.ReadLine().ToLower();
                 if (prop != null)
                 {
-                    if (input == "B" && player.OwnedProperties.FindAll(e => e.Color == property.Color).Count == 3)
+                    if (input == "b" && player.OwnedProperties.FindAll(e => e.Color == property.Color).Count == 3)
                     {
                         exit = true;
                         CommandInvoker.Instance += new CommandBuyHouse(player, prop);
                     }
 
-                    if (input == "S" && prop.Houses > 0)
+                    if (input == "s" && prop.Houses > 0)
                     {
                         exit = true;
                         CommandInvoker.Instance += new CommandSellHouse(player, prop);
                     }
                 }
 
-                if(input == "M")
+                if(input == "m")
                 {
                     exit = true;
                     if (!property.IsMortgaged) CommandInvoker.Instance += new CommandMortgage(player, property);
@@ -88,7 +88,7 @@ namespace Monopoly.Commands
                 }
                 
 
-                if(input == "X")
+                if(input == "x")
                 {
                     exit = true;
                     CommandInvoker.Instance += new CommandSellProperty(player, property);

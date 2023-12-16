@@ -33,27 +33,27 @@ namespace Monopoly.Commands
             while (playerTurn)
             {
                 if(reset) Hotkeys(player, rolled);
-                var line = Console.ReadLine();
+                var line = Console.ReadLine().ToLower();
                 reset = false;
-                if (line == "R" && rolled == false) {
+                if (line == "r" && rolled == false) {
                     CommandInvoker.Instance += new CommandRollDice(player);
                     rolled = true;
                 }
 
-                if (line == "F") CommandInvoker.Instance += new CommandPayFine(player);
+                if (line == "f" && player.IsInJail) CommandInvoker.Instance += new CommandPayFine(player);
 
-                if (line == "B" && Board.Instance.Squares[player.CurrentSqure].TryGetValue(out OwnableLand land)) CommandInvoker.Instance += new CommandBuyProperty(player, land);
+                if (line == "b" && Board.Instance.Squares[player.CurrentSqure].TryGetValue(out OwnableLand land)) CommandInvoker.Instance += new CommandBuyProperty(player, land);
 
-                if (line == "V") CommandInvoker.Instance += new CommandSelectProperty(player);
+                if (line == "v") CommandInvoker.Instance += new CommandSelectProperty(player);
 
-                if (line == "Bankrupt")
+                if (line == "bankrupt")
                 {
                     Console.Clear();
                     CommandInvoker.Instance += new CommandBankrupt(player);
                     playerTurn = false;
                 } 
 
-                if (line == "End")
+                if (line == "end")
                 {
                     Console.Clear();
                     playerTurn = false;
