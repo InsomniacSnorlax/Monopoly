@@ -1,5 +1,7 @@
-﻿using Monopoly.Enums;
+﻿using Monopoly.Commands;
+using Monopoly.Enums;
 using Monopoly.Interfaces;
+using Monopoly.Main;
 
 namespace Monopoly.Squares
 {
@@ -19,7 +21,7 @@ namespace Monopoly.Squares
 
         public void Landed()
         {
-            Board.Instance.currentPlayer.Money -= Cost;
+            CommandInvoker.Instance += new CommandTax(Board.Instance.currentPlayer, Cost);
         }
     }
 }

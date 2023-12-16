@@ -1,4 +1,5 @@
 ﻿using Monopoly.Interfaces;
+using Monopoly.Main;
 using Monopoly.Squares;
 
 namespace Monopoly.Commands
@@ -24,10 +25,11 @@ namespace Monopoly.Commands
         public Queue<ICommand> Logs = new Queue<ICommand>();
 
         static bool reset = true;
+        public bool rolled;
         public void State(Player player)
         {
             var playerTurn = true;
-            var rolled = false;
+            rolled = false;
             while (playerTurn)
             {
                 if(reset) Hotkeys(player, rolled);

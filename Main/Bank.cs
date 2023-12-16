@@ -1,4 +1,4 @@
-﻿namespace Monopoly
+﻿namespace Monopoly.Main
 {
     public sealed class Bank
     {
@@ -9,7 +9,7 @@
         {
             get
             {
-                if(m_Instance == null) m_Instance= new Bank();
+                if (m_Instance == null) m_Instance = new Bank();
 
                 return m_Instance;
             }

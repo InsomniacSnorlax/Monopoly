@@ -1,7 +1,8 @@
-﻿using Monopoly.Interfaces;
+﻿using Monopoly.Commands;
+using Monopoly.Interfaces;
 using Monopoly.Squares;
 
-namespace Monopoly
+namespace Monopoly.Main
 {
     public class Player
     {
@@ -12,7 +13,6 @@ namespace Monopoly
         public int DiceRoll;
         public int CurrentSqure = 0;
         public int TouchedGo;
-        public int TotalMoved;
         public int RolledDouble;
         public bool IsInJail;
 
@@ -23,7 +23,7 @@ namespace Monopoly
             get => m_Money;
             set
             {
-                if(value < 0) 
+                if (value < 0 && !CurrentlySelling)
                 {
                     SellAssets();
                 }
@@ -32,9 +32,12 @@ namespace Monopoly
         }
 
         private int m_Money;
+        bool CurrentlySelling;
 
+        // Automatically sells assets to cover debt
         private void SellAssets()
         {
+            CurrentlySelling = true;
             // Have nothing left to sell hence broke
             while (Money < 0)
             {
@@ -43,13 +46,13 @@ namespace Monopoly
 
                 OwnedProperties.FindAll(e =>
                 {
-                    var isProperty = e.TryGetValue<Property>(out Property p);
+                    var isProperty = e.TryGetValue(out Property p);
                     if (p != null) Properties.Add(p);
                     return isProperty;
                 });
                 var propertiesWithMortgages = OwnedProperties.FindAll(e =>
                 {
-                    if (e.TryGetValue<Property>(out Property p))
+                    if (e.TryGetValue(out Property p))
                         return p?.Houses == 0 && p.IsMortgaged == false;
 
                     return e.IsMortgaged == false;
@@ -59,39 +62,24 @@ namespace Monopoly
 
                 if (propertiesWithHouses.Count != 0)
                 {
-                    m_Money += propertiesWithHouses.MaxBy(e => e.Houses).SellHouse();
+                    CommandInvoker.Instance += new CommandSellHouse(this, propertiesWithHouses.MaxBy(e => e.Houses));
+
+                    //m_Money += .SellHouse();
                 }
-                else if(propertiesWithMortgages.Count != 0)
+                else if (propertiesWithMortgages.Count != 0)
                 {
-                    m_Money += propertiesWithMortgages.First().Mortgaged();
+                    CommandInvoker.Instance += new CommandMortgage(this, propertiesWithMortgages.First());
+                    //m_Money += propertiesWithMortgages.First().Mortgaged();
                 }
 
-                if(propertiesWithHouses.Count == 0 && propertiesWithMortgages.Count == 0 && m_Money <= 0)
+                if (propertiesWithHouses.Count == 0 && propertiesWithMortgages.Count == 0 && m_Money <= 0)
                 {
-                    IsBankrupted = true;
+                    CommandInvoker.Instance += new CommandBankrupt(this);
                     break;
                 }
             }
-        }
 
-        public void EscapePrison()
-        {
-            // Do your time or pay the fine
-            if (Money < Jail.PrisonFine || !IsInJail)
-                return;
-
-            if (JailFreeCards > 0)
-            {
-                JailFreeCards--;
-                IsInJail = false;
-                return;
-            }
-
-            if(new Random().Next(0, 2) == 1)
-            {
-                Money -= Jail.PrisonFine;
-                IsInJail = false;
-            }
+            CurrentlySelling = false;
         }
 
         public void BuyProperty(OwnableLand property)

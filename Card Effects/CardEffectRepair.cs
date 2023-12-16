@@ -1,4 +1,5 @@
-﻿using Monopoly.Squares;
+﻿using Monopoly.Main;
+using Monopoly.Squares;
 
 namespace Monopoly.Card_Effects
 {

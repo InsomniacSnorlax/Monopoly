@@ -1,5 +1,5 @@
 ﻿using Monopoly.Interfaces;
-
+using Monopoly.Main;
 
 namespace Monopoly.Commands
 {
@@ -32,13 +32,17 @@ namespace Monopoly.Commands
 
             if (IsSame)
             {
+                CommandInvoker.Instance.rolled = false;
                 player.RolledDouble++;
                 player.IsInJail = false;
             }
             else player.RolledDouble = 0;
             player.DiceRoll = Result1 + Result2;
 
-            if (player.RolledDouble == 3) CommandInvoker.Instance += new CommandGoToJail(player);
+            if (player.RolledDouble == 3) {
+                CommandInvoker.Instance += new CommandGoToJail(player);
+                CommandInvoker.Instance.rolled = true;
+            } 
 
             if (!player.IsInJail) CommandInvoker.Instance += new CommandMove(player);
         }

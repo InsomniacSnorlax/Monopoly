@@ -1,5 +1,4 @@
-﻿
-namespace Monopoly
+﻿namespace Monopoly.Main
 {
     public static class Utilities
     {
@@ -18,7 +17,7 @@ namespace Monopoly
 
         public static List<string> ReadCSV(string Dir)
         {
-            var Path = AppDomain.CurrentDomain.BaseDirectory + Dir;
+            var Path = $"{AppDomain.CurrentDomain.BaseDirectory}Data{Dir}";
             var list = new List<string>();
             using (var stream = new FileStream(Path, FileMode.Open))
             {
@@ -40,7 +39,7 @@ namespace Monopoly
         {
             type = default;
             if (obj is T) type = (T)obj;
-            
+
 
             return obj is T;
         }

@@ -5,7 +5,7 @@ using Monopoly.Interfaces;
 using Monopoly.Squares;
 using System.Text.RegularExpressions;
 
-namespace Monopoly
+namespace Monopoly.Main
 {
     public class Board
     {
@@ -24,8 +24,8 @@ namespace Monopoly
 
         public Board()
         {
-            AssignClass(Utilities.ReadCSV("International Monopoly property Info.csv"));
-            AssignCard(Utilities.ReadCSV("Cards.csv"));
+            AssignClass(Utilities.ReadCSV(@"\Properties.csv"));
+            AssignCard(Utilities.ReadCSV(@"\Cards.csv"));
 
             Players.Add(new Player("Charlie"));
             Players.Add(new Player("Chau"));
@@ -54,7 +54,7 @@ namespace Monopoly
         }
 
         public List<ISquare> Squares = new();
-        public List<Player> Players= new();
+        public List<Player> Players = new();
         public Player currentPlayer;
         public Queue<ICard> ChanceCards = new();
         public Queue<ICard> CommunityCards = new();
@@ -69,7 +69,7 @@ namespace Monopoly
                 foreach (Player player in Players)
                 {
                     currentPlayer = player;
-                    if(!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer);
+                    if (!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer);
 
                     if (currentPlayer.TouchedGo == 2) FinishedGame = true;
                 }

@@ -1,6 +1,7 @@
 ﻿using Monopoly.Commands;
 using Monopoly.Enums;
 using Monopoly.Interfaces;
+using Monopoly.Main;
 
 namespace Monopoly.Squares
 {

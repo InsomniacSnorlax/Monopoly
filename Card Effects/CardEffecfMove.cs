@@ -1,5 +1,6 @@
 ﻿using Monopoly.Enums;
 using Monopoly.Interfaces;
+using Monopoly.Main;
 using Monopoly.Squares;
 
 namespace Monopoly.Card_Effects
@@ -56,7 +57,7 @@ namespace Monopoly.Card_Effects
 
             if (ClosestSquare.TryGetValue<OwnableLand>(out OwnableLand land) && (moveEffect == MoveEffects.Rent || moveEffect == MoveEffects.Dice))
             {
-                int rent = moveEffect == MoveEffects.Dice ? Utilities.RollD6() * 10 : land.GetRent() * 2;
+               // int rent = moveEffect == MoveEffects.Dice ? Utilities.RollD6() * 10 : land.GetRent() * 2;
 
                 if (land.Owner == null) player.BuyProperty(land);
                 else if (land.Owner != player) land.PayRent(player, land.GetRent() * 2);

@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Card_Effects
+﻿using Monopoly.Main;
+
+namespace Monopoly.Card_Effects
 {
     public class CardEffectPlayerMoney : BaseCardEffect
     {
