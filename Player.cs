@@ -8,7 +8,8 @@ namespace Monopoly
         public Player(string Name) => this.Name = Name;
         public string Name;
         public List<OwnableLand> OwnedProperties = new List<OwnableLand>();
-        
+
+        public int DiceRoll;
         public int CurrentSqure = 0;
         public int TouchedGo;
         public int TotalMoved;
