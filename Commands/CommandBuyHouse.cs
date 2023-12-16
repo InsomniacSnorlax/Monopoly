@@ -24,10 +24,12 @@ namespace Monopoly.Commands
                 return property.Houses;
             });
 
+            houses = property.Houses + 1;
+
             if (property.Houses + 1 - lowest < 2)
             {
                 property.BuyHouse();
-                houses = property.Houses;
+                
                 return;
             }
             NoPurchase = true;

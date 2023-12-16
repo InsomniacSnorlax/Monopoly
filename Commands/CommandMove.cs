@@ -5,9 +5,10 @@ namespace Monopoly.Commands
 {
     public class CommandMove : ICommand
     {
-        public CommandMove(Player player)
+        public CommandMove(Player player, List<ISquare> Squares)
         {
             this.player = player;
+            this.Squares = Squares;
         }
 
         Player player;
@@ -15,7 +16,7 @@ namespace Monopoly.Commands
         ISquare LandedSquare;
         bool touchedGo;
         int previousMoney;
-
+        List<ISquare> Squares;
         public void Execute()
         {
             PreviousCurrentSquare = player.CurrentSqure;
@@ -23,8 +24,6 @@ namespace Monopoly.Commands
             player.CurrentSqure += player.DiceRoll;
 
             player.DiceRoll = 0;
-
-            var Squares = Board.Instance.Squares;
 
             previousMoney = player.Money;
 

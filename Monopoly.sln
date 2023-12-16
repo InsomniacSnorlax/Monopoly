@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly", "Monopoly.csproj", "{4912A0DF-553E-42FF-96BF-AD5C02E49F0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly", "Monopoly.csproj", "{4912A0DF-553E-42FF-96BF-AD5C02E49F0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonopolyTests", "..\MonopolyTests\MonopolyTests.csproj", "{C4D234DE-5939-4D86-820F-41E19FC2C24D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4912A0DF-553E-42FF-96BF-AD5C02E49F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4912A0DF-553E-42FF-96BF-AD5C02E49F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4912A0DF-553E-42FF-96BF-AD5C02E49F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D234DE-5939-4D86-820F-41E19FC2C24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D234DE-5939-4D86-820F-41E19FC2C24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D234DE-5939-4D86-820F-41E19FC2C24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D234DE-5939-4D86-820F-41E19FC2C24D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
