@@ -46,6 +46,13 @@ namespace Monopoly.Commands
 
                 if (line == "V") CommandInvoker.Instance += new CommandSelectProperty(player);
 
+                if (line == "Bankrupt")
+                {
+                    Console.Clear();
+                    CommandInvoker.Instance += new CommandBankrupt(player);
+                    playerTurn = false;
+                } 
+
                 if (line == "End")
                 {
                     Console.Clear();
@@ -84,6 +91,7 @@ namespace Monopoly.Commands
             if (player.IsInJail) Console.WriteLine("F to be released from jail");
             if (land != null && land.Owner == null) Console.WriteLine("B to buy land");
             Console.WriteLine("V to select owned Properties");
+            Console.WriteLine("Bankrupt to forfeit the game");
             Console.WriteLine("End to end turn");
             Console.WriteLine();
             Console.WriteLine($"{player.Name}'s turn");

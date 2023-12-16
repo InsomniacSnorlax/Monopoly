@@ -3,7 +3,7 @@ Go,Go,,1,,,,,,,,,,
 Old Kent Road,Property,60,2,Brown,2,4,10,30,90,160,250,50,30
 Community Chest,Community,,3,,,,,,,,,,
 Whitechapel Road,Property,60,4,Brown,4,8,20,60,180,320,450,50,30
-Income Tax,Tax,,5,,,,,,,,,,
+Income Tax,Tax,,5,,200,,,,,,,,
 Kings Cross Station,Rail,200,6,,,,25,50,100,200,,,100
 The Angel Islington,Property,100,7,Cyan,6,12,30,90,270,400,550,50,50
 Chance,Chance,,8,,,,,,,,,,
@@ -37,5 +37,5 @@ Bond Street,Property,320,35,Green,28,56,150,450,1000,1200,1400,200,160
 Liverpool Street Station,Rail,200,36,,,,25,50,100,200,,,100
 Chance,Chance,,37,,,,,,,,,,
 Park Lane,Property,350,38,Blue,35,70,175,500,1100,1300,1500,200,175
-Luxury Tax,Tax,,39,,,,,,,,,,
+Luxury Tax,Tax,,39,,75,,,,,,,,
 Mayfair,Property,400,40,Blue,50,100,200,600,1400,1700,2000,200,200

@@ -7,10 +7,11 @@ namespace Monopoly.Squares
 {
     public class Tax : ISquare
     {
-        public Tax(string Name, int Position)
+        public Tax(string[] parameter)
         {
-            this.Name = Name;
-            this.Position = Position;
+            this.Name = parameter[0];
+            this.Position = int.Parse(parameter[3]);
+            this.Cost = int.Parse(parameter[5]);
         }
 
         public string Name { get; }

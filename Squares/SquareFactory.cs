@@ -23,7 +23,7 @@ namespace Monopoly.Squares
                     square = new Utility(parameter);
                     break;
                 case "Tax":
-                    square = new Tax(parameter[0], Position);
+                    square = new Tax(parameter);
                     break;
                 case "Chance":
                     square = new Cards(SquareType.Chance, Position);

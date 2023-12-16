@@ -10,8 +10,8 @@ namespace Monopoly.Commands
         }
 
         Player player;
-        int Result1;
-        int Result2;
+        public int Result1;
+        public int Result2;
 
         bool IsSame;
         int PreviousRolledDouble;
@@ -46,6 +46,8 @@ namespace Monopoly.Commands
             } 
 
             if (!player.IsInJail) CommandInvoker.Instance += new CommandMove(player, Board.Instance.Squares);
+
+            player.DiceRollHistory.Enqueue(this);
         }
 
         public string Log()

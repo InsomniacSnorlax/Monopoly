@@ -10,6 +10,8 @@ namespace Monopoly.Main
         public string Name;
         public List<OwnableLand> OwnedProperties = new List<OwnableLand>();
 
+        public Queue<CommandRollDice> DiceRollHistory = new Queue<CommandRollDice>();
+
         public int DiceRoll;
         public int CurrentSqure = 0;
         public int TouchedGo;

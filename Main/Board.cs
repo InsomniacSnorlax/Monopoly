@@ -27,10 +27,6 @@ namespace Monopoly.Main
             AssignClass(Utilities.ReadCSV(@"\Properties.csv"));
             AssignCard(Utilities.ReadCSV(@"\Cards.csv"));
 
-            Players.Add(new Player("Charlie"));
-            Players.Add(new Player("Chau"));
-            Players.ForEach(e => e.Money = 1500);
-
             void AssignClass(List<string> strings)
             {
                 strings.ForEach(e => Squares.Add(e.Split(',').CreateSquare()));
@@ -60,18 +56,35 @@ namespace Monopoly.Main
         public Queue<ICard> CommunityCards = new();
         private bool FinishedGame = false;
         public int Turn;
+
+        private int EndTurn;
         public int Rotation => Players.Max(e => e.TouchedGo);
+
+        public void Init(List<Player> Players, int Turns)
+        {
+            this.Players = Players;
+            EndTurn = Turns;
+
+            this.Players.ForEach(e => e.Money = 1500);
+        }
+
         public void Play()
         {
             while (!FinishedGame)
             {
                 Turn++;
+
                 foreach (Player player in Players)
                 {
                     currentPlayer = player;
-                    if (!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer);
 
-                    if (currentPlayer.TouchedGo == 2) FinishedGame = true;
+                    if (currentPlayer.TouchedGo == EndTurn || Players.FindAll(e => e.IsBankrupted).Count == Players.Count - 1)
+                    {
+                        FinishedGame = true;
+                        break;
+                    }
+
+                    if (!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer); 
                 }
             }
         }
