@@ -1,20 +1,18 @@
 ﻿using Monopoly.Commands;
-using Monopoly.Interfaces;
 using Monopoly.Squares;
 
 namespace Monopoly.Main
 {
-    public class Player
+    public sealed class Player
     {
         public Player(string Name) => this.Name = Name;
         public string Name;
         public List<OwnableLand> OwnedProperties = new List<OwnableLand>();
-
         public Queue<CommandRollDice> DiceRollHistory = new Queue<CommandRollDice>();
 
         public int DiceRoll;
         public int CurrentSqure = 0;
-        public int TouchedGo;
+        public int Rotations;
         public int RolledDouble;
         public bool IsInJail;
 
@@ -65,13 +63,10 @@ namespace Monopoly.Main
                 if (propertiesWithHouses.Count != 0)
                 {
                     CommandInvoker.Instance += new CommandSellHouse(this, propertiesWithHouses.MaxBy(e => e.Houses));
-
-                    //m_Money += .SellHouse();
                 }
                 else if (propertiesWithMortgages.Count != 0)
                 {
                     CommandInvoker.Instance += new CommandMortgage(this, propertiesWithMortgages.First());
-                    //m_Money += propertiesWithMortgages.First().Mortgaged();
                 }
 
                 if (propertiesWithHouses.Count == 0 && propertiesWithMortgages.Count == 0 && m_Money <= 0)

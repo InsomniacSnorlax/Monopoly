@@ -82,7 +82,7 @@ namespace Monopoly.Commands
         private void Hotkeys(Player player, bool rolled)
         {
             Console.WriteLine($"Current Turn: {Board.Instance.Turn}");
-            Console.WriteLine($"Time around the map: {Board.Instance.Rotation}");
+            Console.WriteLine($"Time around the map: {Board.Instance.Tours}");
             Console.WriteLine($"Currently on: {Board.Instance.Squares[player.CurrentSqure].Name}");
             if(Board.Instance.Squares[player.CurrentSqure].TryGetValue(out OwnableLand land)) Console.WriteLine($"Cost: {land.Cost}");
             if (Board.Instance.Squares[player.CurrentSqure].TryGetValue(out Property prop)) Console.WriteLine($"Color: {prop.Color}");

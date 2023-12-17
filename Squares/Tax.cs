@@ -5,7 +5,7 @@ using Monopoly.Main;
 
 namespace Monopoly.Squares
 {
-    public class Tax : ISquare
+    public sealed class Tax : ISquare
     {
         public Tax(string[] parameter)
         {
@@ -15,14 +15,14 @@ namespace Monopoly.Squares
         }
 
         public string Name { get; }
-        public int Cost { get; }
+        
         public SquareType Type => SquareType.Tax;
 
         public int Position { get; }
-
+        public int Cost { get; }
         public void Landed()
         {
-            CommandInvoker.Instance += new CommandTax(Board.Instance.currentPlayer, Cost);
+            CommandInvoker.Instance += new CommandTax(Board.Instance.CurrentPlayer, Cost);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿
-using Monopoly.Enums;
-using Monopoly.Interfaces;
-using System.Numerics;
+﻿using Monopoly.Enums;
+using Monopoly.Main;
 
 namespace Monopoly.Squares
 {
@@ -10,7 +8,6 @@ namespace Monopoly.Squares
     {
         public override SquareType Type => SquareType.Property;
         public int BuildingCost { get; }
-
         public int ColorRent { get; }
 
         // Rent dependant on number of houses
@@ -40,22 +37,41 @@ namespace Monopoly.Squares
             Mortgage = int.Parse(lines[13]);
         }
 
-
-        public int SellHouse()
+        public void SellHouse()
         {
+            if (Houses == 5)
+            {
+                Bank.Instance.Houses -= 4;
+                Bank.Instance.Hotels += 1;
+            }
+            else
+            {
+                Bank.Instance.Houses += 1;
+            }
+
             Houses--;
-            return BuildingCost / 2;
+            Owner.Money += BuildingCost / 2;
         }
 
         public void BuyHouse()
         {
-            Owner.Money -= BuildingCost;
+            if(Houses == 4)
+            {
+                Bank.Instance.Houses += 4;
+                Bank.Instance.Hotels -= 1;
+            }
+            else
+            {
+                Bank.Instance.Houses -= 1;
+            }
+
             Houses++;
+            Owner.Money -= BuildingCost;
         }
 
         public override int GetRent()
         {
-            // If only
+            // Checks if the Owner has the other 2 properties with the color value in order to use the ColorRent bonus
             int rent = Owner.OwnedProperties.FindAll(e => e.Color == Color).Count == 3 ? ColorRent : Rent;
 
             switch (Houses)

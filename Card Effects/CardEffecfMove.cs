@@ -30,7 +30,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            Player player = Board.Instance.currentPlayer;
+            Player player = Board.Instance.CurrentPlayer;
             int PlayerPosition = player.CurrentSqure;
 
             ISquare ClosestSquare = null;
@@ -57,10 +57,17 @@ namespace Monopoly.Card_Effects
 
             if (ClosestSquare.TryGetValue<OwnableLand>(out OwnableLand land) && (moveEffect == MoveEffects.Rent || moveEffect == MoveEffects.Dice))
             {
-               // int rent = moveEffect == MoveEffects.Dice ? Utilities.RollD6() * 10 : land.GetRent() * 2;
 
-                if (land.Owner == null) player.BuyProperty(land);
-                else if (land.Owner != player) land.PayRent(player, land.GetRent() * 2);
+                if (land.Owner == null)
+                {
+                    player.BuyProperty(land);
+                }
+                else if (land.Owner != player)
+                {
+                    //Special rent rules found on the card
+                    int rent = moveEffect == MoveEffects.Dice ? Utilities.RollD6() * 10 : land.GetRent() * 2;
+                    land.PayRent(player, rent);
+                }
             }
 
             player.CurrentSqure = ClosestSquare.Position;

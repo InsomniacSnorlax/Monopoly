@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Monopoly.Main
 {
-    public class Board
+    public sealed class Board
     {
         public static Board Instance
         {
@@ -24,8 +24,8 @@ namespace Monopoly.Main
 
         public Board()
         {
-            AssignClass(Utilities.ReadCSV(@"\Properties.csv"));
-            AssignCard(Utilities.ReadCSV(@"\Cards.csv"));
+            AssignClass(Utilities.ReadCSV(@"Data\Properties.csv"));
+            AssignCard(Utilities.ReadCSV(@"Data\Cards.csv"));
 
             void AssignClass(List<string> strings)
             {
@@ -51,19 +51,19 @@ namespace Monopoly.Main
 
         public List<ISquare> Squares = new();
         public List<Player> Players = new();
-        public Player currentPlayer;
+        public Player CurrentPlayer;
         public Queue<ICard> ChanceCards = new();
         public Queue<ICard> CommunityCards = new();
+
         private bool FinishedGame = false;
         public int Turn;
+        private int EndTour;
+        public int Tours => Players.Max(e => e.Rotations);
 
-        private int EndTurn;
-        public int Rotation => Players.Max(e => e.TouchedGo);
-
-        public void Init(List<Player> Players, int Turns)
+        public void Init(List<Player> Players, int Tours)
         {
             this.Players = Players;
-            EndTurn = Turns;
+            EndTour = Tours;
 
             this.Players.ForEach(e => e.Money = 1500);
         }
@@ -76,19 +76,17 @@ namespace Monopoly.Main
 
                 foreach (Player player in Players)
                 {
-                    currentPlayer = player;
+                    CurrentPlayer = player;
 
-                    if (currentPlayer.TouchedGo == EndTurn || Players.FindAll(e => e.IsBankrupted).Count == Players.Count - 1)
+                    if (CurrentPlayer.Rotations == EndTour || Players.FindAll(e => e.IsBankrupted).Count == Players.Count - 1)
                     {
                         FinishedGame = true;
                         break;
                     }
 
-                    if (!currentPlayer.IsBankrupted) CommandInvoker.Instance.State(currentPlayer); 
+                    if (!CurrentPlayer.IsBankrupted) CommandInvoker.Instance.State(CurrentPlayer); 
                 }
             }
         }
-
-        public int SendPlayerTo(SquareType Type) => Squares.ToList().FindIndex(e => e.Type == Type);
     }
 }

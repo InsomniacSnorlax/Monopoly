@@ -4,7 +4,7 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class Cards : ISquare
+    public sealed class Cards : ISquare
     {
         public Cards(SquareType Type, int Position)
         {
@@ -12,11 +12,8 @@ namespace Monopoly.Squares
             this.Position = Position;
         }
         public string Name => Type.ToString();
-
-        public SquareType Type { get; }
-
         public int Position { get; }
-
+        public SquareType Type { get; }
         public void Landed()
         {
             CommandInvoker.Instance += new CommandPickCard(Type);

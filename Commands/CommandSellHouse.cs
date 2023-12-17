@@ -2,10 +2,9 @@
 using Monopoly.Main;
 using Monopoly.Squares;
 
-
 namespace Monopoly.Commands
 {
-    public class CommandSellHouse : ICommand
+    public sealed class CommandSellHouse : ICommand
     {
         public CommandSellHouse(Player player, Property property)
         {

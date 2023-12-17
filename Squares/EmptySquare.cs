@@ -3,7 +3,7 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class EmptySquare : ISquare
+    public sealed class EmptySquare : ISquare
     {
         public EmptySquare(SquareType Type, int Position)
         {

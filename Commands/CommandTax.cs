@@ -1,10 +1,9 @@
-﻿
-using Monopoly.Interfaces;
+﻿using Monopoly.Interfaces;
 using Monopoly.Main;
 
 namespace Monopoly.Commands
 {
-    public class CommandTax : ICommand
+    public sealed class CommandTax : ICommand
     {
         public CommandTax(Player player, int cost) { 
             this.player = player;

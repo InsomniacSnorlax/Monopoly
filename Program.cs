@@ -1,6 +1,5 @@
 ﻿using Monopoly.Commands;
 using Monopoly.Main;
-using System.Numerics;
 
 Console.WriteLine("How many rotations around the board would you like?");
 string result = string.Empty;
@@ -13,14 +12,16 @@ while(turns == 0)
 result= string.Empty;
 Console.Clear();
 
-int playerCount = 0;
+
 Console.WriteLine("How many players? (2-4)");
+int playerCount = 0;
 while (playerCount < 2 || playerCount > 4 )
 {
     result = Console.ReadLine();
     int.TryParse(result, out playerCount);
 }
 Console.Clear();
+
 
 List<Player> Players = new();
 for (int i = 0; i < playerCount; i++)
@@ -30,13 +31,21 @@ for (int i = 0; i < playerCount; i++)
     Console.Clear();
 }
 
+
 Board.Instance.Init(Players, turns);
 Board.Instance.Play();
 
 Console.Clear();
 Console.WriteLine("Game Finished");
-Console.WriteLine($"{Board.Instance.Players.Find(e => !e.IsBankrupted).Name} is the winner");
 
+string Winner = string.Empty;
+if (Board.Instance.Players.FindAll(e => e.IsBankrupted).Count != Players.Count - 1)
+{
+    Winner = Board.Instance.Players.MaxBy(e => e.OwnedProperties.Count).Name;
+}
+else Winner = Board.Instance.Players.Find(e => !e.IsBankrupted).Name;
+
+Console.WriteLine($"{Winner} is the winner");
 foreach(var player in Board.Instance.Players)
 {
     Console.WriteLine();
@@ -51,8 +60,8 @@ foreach(var player in Board.Instance.Players)
         DiceRolls += $" ({roll.Result1},{roll.Result1})";
     }
     Console.WriteLine(DiceRolls);
-    // Need to show all the dice rolls of this character
 }
+
 
 using (TextWriter tw = new StreamWriter("Logs.txt"))
 {
@@ -64,7 +73,6 @@ using (TextWriter tw = new StreamWriter("Logs.txt"))
     }
 }
 
+
 Console.WriteLine("Actions from the game will now be printed into a txt file");
 Console.ReadLine();
-
-//Print out logs into file

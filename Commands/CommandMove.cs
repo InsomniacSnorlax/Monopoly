@@ -30,7 +30,7 @@ namespace Monopoly.Commands
             if (player.CurrentSqure > Squares.Count - 1)
             {
                 player.CurrentSqure %= (Squares.Count - 1);
-                player.TouchedGo++;
+                player.Rotations++;
                 player.Money += 200;
                 touchedGo = true;
             }

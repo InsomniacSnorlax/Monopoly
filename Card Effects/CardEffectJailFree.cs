@@ -10,7 +10,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            Board.Instance.currentPlayer.JailFreeCards++;
+            Board.Instance.CurrentPlayer.JailFreeCards++;
         }
     }
 }

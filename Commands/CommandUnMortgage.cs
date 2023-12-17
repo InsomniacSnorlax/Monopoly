@@ -4,7 +4,7 @@ using Monopoly.Squares;
 
 namespace Monopoly.Commands
 {
-    public class CommandUnMortgage : ICommand
+    public sealed class CommandUnMortgage : ICommand
     {
         public CommandUnMortgage(Player player, OwnableLand land)
         {
@@ -14,6 +14,7 @@ namespace Monopoly.Commands
         public Player player;
         public OwnableLand land;
         int mortgageAmount = 0;
+
         public void Execute()
         {
             mortgageAmount = land.UnMortgage();

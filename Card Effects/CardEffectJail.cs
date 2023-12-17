@@ -12,7 +12,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.currentPlayer);
+            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.CurrentPlayer);
         }
     }
 }

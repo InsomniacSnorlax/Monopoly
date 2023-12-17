@@ -3,7 +3,7 @@ using Monopoly.Interfaces;
 
 namespace Monopoly.Squares
 {
-    public class Railroad : OwnableLand
+    public sealed class Railroad : OwnableLand
     {
         public override SquareType Type => SquareType.Rail;
 
@@ -19,6 +19,7 @@ namespace Monopoly.Squares
             Mortgage = int.Parse(lines[13]);
         }
 
+        // Rent dependant on how many railraods owned
         int Rent2;
         int Rent3;
         int Rent4;

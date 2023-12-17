@@ -67,7 +67,8 @@ namespace Monopoly.Commands
                 var input = Console.ReadLine().ToLower();
                 if (prop != null)
                 {
-                    if (input == "b" && player.OwnedProperties.FindAll(e => e.Color == property.Color).Count == 3)
+                    if (input == "b" && player.OwnedProperties.FindAll(e => e.Color == property.Color).Count == 
+                        Board.Instance.Squares.FindAll(e => e.TryGetValue(out Property prop) && prop.Color == property.Color).Count)
                     {
                         exit = true;
                         CommandInvoker.Instance += new CommandBuyHouse(player, prop);

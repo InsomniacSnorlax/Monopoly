@@ -1,11 +1,11 @@
 ﻿using Monopoly.Interfaces;
 using Monopoly.Main;
+using System.Numerics;
 
 namespace Monopoly.Commands
 {
     public class CommandBankrupt : ICommand
     {
-
         public CommandBankrupt(Player player) => this.player = player;
 
         Player player;

@@ -13,7 +13,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            Board.Instance.currentPlayer.Money += value;
+            Board.Instance.CurrentPlayer.Money += value;
         }
     }
 }

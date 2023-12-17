@@ -5,7 +5,7 @@ using Monopoly.Main;
 
 namespace Monopoly.Squares
 {
-    public class Jail : ISquare
+    public sealed class Jail : ISquare
     {
         public Jail(SquareType type, int position)
         {
@@ -21,7 +21,7 @@ namespace Monopoly.Squares
         public void Landed()
         {
             if (Type != SquareType.GoToJail) return;
-            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.currentPlayer);
+            CommandInvoker.Instance += new CommandGoToJail(Board.Instance.CurrentPlayer);
         }
     }
 }

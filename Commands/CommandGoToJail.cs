@@ -1,7 +1,6 @@
 ﻿using Monopoly.Enums;
 using Monopoly.Interfaces;
 using Monopoly.Main;
-using System.Numerics;
 
 namespace Monopoly.Commands
 {
@@ -19,7 +18,7 @@ namespace Monopoly.Commands
         {
             PreviousSquare = player.CurrentSqure;
             player.RolledDouble = 0;
-            player.CurrentSqure = Board.Instance.SendPlayerTo(SquareType.Jail);
+            player.CurrentSqure = Board.Instance.Squares.FindIndex(e => e.Type == SquareType.Jail);
             player.IsInJail = true;
         }
 

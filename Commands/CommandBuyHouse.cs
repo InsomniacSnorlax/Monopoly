@@ -26,6 +26,13 @@ namespace Monopoly.Commands
 
             houses = property.Houses + 1;
 
+            if (property.Houses == 4 && Bank.Instance.Hotels <= 0 || property.Houses < 4 && Bank.Instance.Houses <= 0)
+            {
+                // No more hotels to buy
+                NoPurchase = true;
+                return;
+            }
+
             if (property.Houses + 1 - lowest < 2)
             {
                 property.BuyHouse();

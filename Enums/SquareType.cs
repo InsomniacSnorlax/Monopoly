@@ -1,5 +1,4 @@
-﻿
-namespace Monopoly.Enums
+﻿namespace Monopoly.Enums
 {
     public enum SquareType
     {

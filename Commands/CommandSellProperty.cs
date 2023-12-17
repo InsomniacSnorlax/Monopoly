@@ -4,7 +4,7 @@ using Monopoly.Squares;
 
 namespace Monopoly.Commands
 {
-    public class CommandSellProperty : ICommand
+    public sealed class CommandSellProperty : ICommand
     {
         public CommandSellProperty(Player player, OwnableLand property)
         {

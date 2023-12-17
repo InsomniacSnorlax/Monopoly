@@ -8,14 +8,16 @@ namespace Monopoly.Squares
     public abstract class OwnableLand : ISquare
     {
         public string Name { get; set; }
+        public virtual SquareType Type { get; set; }
+        public int Position { get; set; }
+
         public int Cost { get; set; }
         public string Color { get; set; }
         public int Rent { get; set; }
         public int Mortgage { get; set; }
         public bool IsMortgaged { get; set; }
         public Player Owner { get; set; } = null;
-        public virtual SquareType Type { get; set; }
-        public int Position { get; set; }
+        
 
         public void BuyProperty(Player player)
         {
@@ -45,9 +47,9 @@ namespace Monopoly.Squares
             return (int)(Mortgage * 1.1f);
         }
 
-        public virtual void Landed()
+        public void Landed()
         {
-            Player currentPlayer = Board.Instance.currentPlayer;
+            Player currentPlayer = Board.Instance.CurrentPlayer;
 
             if (Owner != null && currentPlayer != Owner && !IsMortgaged)
             {
@@ -55,7 +57,7 @@ namespace Monopoly.Squares
             }
         }
 
-        public virtual void PayRent(Player currentPlayer, int rent)
+        public void PayRent(Player currentPlayer, int rent)
         {
             currentPlayer.Money -= rent;
             Owner.Money += rent;

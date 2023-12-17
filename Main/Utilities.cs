@@ -17,7 +17,7 @@
 
         public static List<string> ReadCSV(string Dir)
         {
-            var Path = $"{AppDomain.CurrentDomain.BaseDirectory}Data{Dir}";
+            var Path = $"{AppDomain.CurrentDomain.BaseDirectory}{Dir}";
             var list = new List<string>();
             using (var stream = new FileStream(Path, FileMode.Open))
             {

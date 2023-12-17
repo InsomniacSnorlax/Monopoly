@@ -5,7 +5,8 @@ namespace Monopoly.Commands
 {
     public class CommandRollDice : ICommand
     {
-        public CommandRollDice(Player player) {
+        public CommandRollDice(Player player)
+        {
             this.player = player;
         }
 
@@ -13,18 +14,14 @@ namespace Monopoly.Commands
         public int Result1;
         public int Result2;
 
-        bool IsSame;
-        int PreviousRolledDouble;
         bool UsedJailFree;
 
         public void Execute()
         {
             Result1 = Utilities.RollD6();
             Result2 = Utilities.RollD6();
-            IsSame = Result1 == Result2;
-            PreviousRolledDouble = player.RolledDouble;
 
-            if (IsSame)
+            if (Result1 == Result2)
             {
                 CommandInvoker.Instance.rolled = false;
                 player.RolledDouble++;
@@ -40,10 +37,11 @@ namespace Monopoly.Commands
                 player.IsInJail = false;
             }
 
-            if (player.RolledDouble == 3) {
+            if (player.RolledDouble == 3)
+            {
                 CommandInvoker.Instance += new CommandGoToJail(player);
                 CommandInvoker.Instance.rolled = true;
-            } 
+            }
 
             if (!player.IsInJail) CommandInvoker.Instance += new CommandMove(player, Board.Instance.Squares);
 

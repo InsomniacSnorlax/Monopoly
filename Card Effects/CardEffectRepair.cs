@@ -19,7 +19,7 @@ namespace Monopoly.Card_Effects
 
         public override void PlayEffect()
         {
-            Player currentPlayer = Board.Instance.currentPlayer;
+            Player currentPlayer = Board.Instance.CurrentPlayer;
             int totalHouses = 0;
             int totalHotels = currentPlayer.OwnedProperties.FindAll(e => e.TryGetValue<Property>(out Property property) && property.Houses == 5).Count;
 
