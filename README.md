@@ -2,6 +2,11 @@
 ### About
 This project aims to recreate many of the core features and rules of Monopoly in a basic c# console application. In doing so, this also serves to demonstrate my current coding ability while working with different design patterns and coding practices.
 
+This project was completed over the span of 5 days. With a total of 10 Hours and 34 Minutes excluding the time I took setting up the Wiki
+1 - 3 Days : Coding
+4 Day : Unit testing - Logging
+5 Day : Github 
+
 ### Features implemented
 - Basic UI
 - 2-4 Players
